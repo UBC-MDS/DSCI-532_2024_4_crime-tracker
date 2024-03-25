@@ -4,3 +4,8 @@ channels:
   - defaults
 dependencies:
   - python=3.9
+  - keplergl
+  - geopandas
+  - matplotlib
+  - pandas
+  - ipykernel
