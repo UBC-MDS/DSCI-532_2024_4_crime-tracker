@@ -1,6 +1,15 @@
 # Milestone 1 - Dashboard proposal(Vancouver Crime Tracker)
 
 ## 1. Motivation and purpose
+Our role: Data scientist consultancy firm
+
+Target audience: Law enforcement administrators and policymakers for the Vancouver Police Department
+
+The Vancouver Police Department plays a crucial role in ensuring public safety and maintaining the quality of life within the city. A comprehensive understanding of crime patterns is essential for effective policing and strategic resource allocation. Our "Crime Tracker" dashboard is designed to support law enforcement administrators by offering a clear, analytical view of crime data across various key dimensions such as location, time, and crime categories.
+
+This tool facilitates a data-driven approach to law enforcement, allowing for informed decisions on where and when to deploy resources. Through interactive visualizations, the dashboard helps identify trends and hotspots, enabling administrators to prioritize areas that require immediate attention and plan preventive measures.
+
+With the "Crime Tracker," the Vancouver Police Department can enhance their operational efficiency, responding decisively to the dynamic landscape of urban crime, ultimately striving for a safer community.
 
 
 ## 2. Description of the data
