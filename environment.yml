@@ -9,3 +9,7 @@ dependencies:
   - matplotlib
   - pandas
   - ipykernel
+  - altair=5.1.2
+  - vegafusion=1.4.3
+  - folium=0.15.0
+  - seaborn=0.13.0
