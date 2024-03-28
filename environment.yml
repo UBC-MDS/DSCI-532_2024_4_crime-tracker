@@ -13,3 +13,7 @@ dependencies:
   - vegafusion=1.4.3
   - folium=0.15.0
   - seaborn=0.13.0
+  - altair-all
+  - dash
+  - dash-bootstrap-components
+  - plotly
