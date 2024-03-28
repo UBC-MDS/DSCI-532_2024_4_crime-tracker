@@ -12,7 +12,19 @@ This tool facilitates a data-driven approach to law enforcement, allowing for in
 With the "Crime Tracker," the Vancouver Police Department can enhance their operational efficiency, responding decisively to the dynamic landscape of urban crime, ultimately striving for a safer community.
 
 ## 2. Description of the data
-
+We will be analyzing a subset of a dataset focused on crimes in Vancouver, sourced from GeoDASH, which extracts data from the PRIME BC Police Records Management System (RMS). The primary dataset contains approximately 1,000,000 records spanning all Vancouver neighborhoods from 2003 to the present. Our subset comprises 5,099 records from 2023, covering seven selected neighborhoods.
+The dataset consists of 10 variables, which can be classified into three main categories:
+1. Temporal Variables: These include Year, Month, Day, Hour, and Minutes, providing detailed timestamps for each reported crime.   
+2. Spatial Variables: This category encompasses Neighborhoods, Hundred_Block, Latitude, and Longitude, offering geographical information about where each crime occurred.  
+3. Type: Denoting the category of crimes reported.
+Leveraging the combination of temporal and spatial data can yield valuable insights for effective urban planning and crime reduction strategies. Law enforcement agencies require a comprehensive overview of crime occurrences over time and location to facilitate swift and informed decision-making. The dataset's variables empower them to respond promptly, ultimately contributing to the safety of city residents.
+We intend to derive additional variables from the dataset to enhance our understanding of the situation, some of which will be integrated into our dashboard:
+- Aggregate Crime Counts by Neighbourhood or Hundred Block: Identifying crime hotspots by aggregating incidents within specific geographic areas.
+- Aggregate Statistics: Calculating counts, averages, or sums of crimes over different time intervals (e.g., daily, weekly, monthly) to discover patterns and trends.
+- Proximity Analysis: Determining the distance from key locations such as police stations, schools, or parks to assess their impact on crime rates.
+- Temporal Analysis: Extracting features from the datetime columns, such as day of the week or time of day (morning, afternoon, evening, night), to uncover temporal patterns in crime occurrence.
+- Weather Integration: Incorporating weather data (e.g., temperature, precipitation) into the analysis to explore potential correlations between weather conditions and crime rates.
+- Crime Rate Calculation: Estimating the rate of crime based on the population of each neighborhood to provide context for crime occurrences.
 
 
 ## 3. Research questions and usage scenarios
