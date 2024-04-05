@@ -4,16 +4,13 @@ channels:
   - defaults
 dependencies:
   - python=3.9
-  - keplergl
   - geopandas
-  - matplotlib
   - pandas
   - ipykernel
-  - altair=5.1.2
-  - vegafusion=1.4.3
-  - folium=0.15.0
-  - seaborn=0.13.0
-  - altair-all
   - dash
   - dash-bootstrap-components
+  - nbformat
   - plotly
+  - pip
+  - pip:
+      - dash-vega-components
