@@ -1,0 +1,9 @@
+gunicorn==21.2.*
+dash==2.16.*
+dash-bootstrap-components==1.5.*
+dash-vega-components==0.9.*
+geopandas==0.14.*
+ipykernel==6.29.*
+nbformat==5.10.*
+pandas==2.2.*
+plotly==5.19.*

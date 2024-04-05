@@ -4,11 +4,12 @@ from vega_datasets import data
 import pandas as pd
 from dash import Dash, dcc, callback, Output, Input, html
 
+
 # Initiatlize the app
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 server = app.server
 
-crime_data = pd.read_csv("data/crimedata_processed.csv")
+crime_data = pd.read_csv("data/processed/crimedata_processed.csv")
 
 app.layout = dbc.Container([
     dbc.Row([
