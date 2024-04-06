@@ -4,15 +4,15 @@ import pandas as pd
 from dash import Dash, dcc, callback, Output, Input, html
 import plotly.express as px
 
-# Initiatlize the app
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 server = app.server
 
 crime_df = pd.read_csv("data/processed/crimedata_processed.csv")
 crime_df['DATE'] = pd.to_datetime(crime_df[['YEAR','MONTH','DAY','HOUR','MINUTE']])
 crime_df.set_index('DATE',inplace=True)
+hourly_df = crime_df.groupby(['TYPE','NEIGHBOURHOOD']).resample('h').size().reset_index(name='COUNT')
+hourly_df['HOUR']=hourly_df['DATE'].dt.strftime('%H')
 
-# Create dropdown options
 crime_type_options = [{'label': crime_type, 'value': crime_type} for crime_type in crime_df['TYPE'].unique()]
 crime_type_options.insert(0, {'label': 'All', 'value': 'All'})
 neighbourhood_options = [{'label': neighbourhood, 'value': neighbourhood} for neighbourhood in crime_df['NEIGHBOURHOOD'].unique()]
@@ -66,24 +66,22 @@ app.layout = dbc.Container([
             dbc.Row([
                 dbc.Col([
                     html.H5(["Crime Type:",
-                                dcc.Dropdown(
-                                id='crime-type-dropdown',
-                                options=crime_type_options,
-                                value='All',  # Default value
-                                clearable=False,
-                            )
-                        ]),
-                    ]),
-                dbc.Col([
-                    html.H5(["Neighbourhood:",
-                                dcc.Dropdown(
-                                    id='neighbourhood-dropdown',
-                                    options=neighbourhood_options,
+                                 dcc.Dropdown(
+                                    id='crime-type-dropdown',
+                                    options=crime_type_options,
                                     value='All',  # Default value
                                     clearable=False,
-                                )
-                            ]),
-                    ]),
+                                )]),
+                ]),
+                dbc.Col([
+                    html.H5(["Neighbourhood:",
+                            dcc.Dropdown(
+                                id='neighbourhood-dropdown',
+                                options=neighbourhood_options,
+                                value='All',  # Default value
+                                clearable=False,
+                        )]),
+                  ]),
                 ]),
             dbc.Row([
                 html.H2([dcc.Graph(id='crime-map-chart')
@@ -91,9 +89,9 @@ app.layout = dbc.Container([
             ]),
             dbc.Row([
                 html.Div([
-                         dcc.Graph(id='crime-line-chart')
+                        dcc.Graph(id='crime-line-chart')
                     ])
-                ]),
+            ])
         ], md=9
         ),
         dbc.Col([
@@ -113,6 +111,26 @@ app.layout = dbc.Container([
         ),
     ])
 ])
+
+@app.callback(
+    Output('crime-line-chart', 'figure'),
+    [Input('crime-type-dropdown', 'value'),
+     Input('neighbourhood-dropdown','value')]
+)
+def update_line_chart(selected_crime,selected_neighbourhood):
+    if selected_crime == 'All':
+        filtered_df = hourly_df
+    else:
+        filtered_df = hourly_df[(hourly_df['TYPE'] == selected_crime)]
+
+    if selected_neighbourhood != 'All':
+        filtered_df = filtered_df[(filtered_df['NEIGHBOURHOOD'] == selected_neighbourhood)]
+
+    filtered_df = filtered_df.groupby('HOUR').agg({'TYPE': 'first','COUNT': 'sum'}).reset_index()
+    fig = px.line(filtered_df, x='HOUR', y='COUNT', title=f'Hourly Counts for {selected_crime} Crime in {selected_neighbourhood} Neighbourhood',
+                    labels={'HOUR': 'Time [Hour]', 'COUNT': 'Crime Count'})
+    fig.update_traces(mode='lines+markers', line=dict(color='blue'))
+    return fig
 
 @app.callback(
     Output('crime-map-chart', 'figure'),
