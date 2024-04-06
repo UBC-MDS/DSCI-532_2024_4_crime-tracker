@@ -1,4 +1,22 @@
+import dash_bootstrap_components as dbc
+import dash_vega_components as dvc
+import pandas as pd
+from dash import Dash, dcc, callback, Output, Input, html
+import plotly.express as px
 
+# Initiatlize the app
+app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
+server = app.server
+
+crime_df = pd.read_csv("data/crimedata_processed.csv")
+crime_df['DATE'] = pd.to_datetime(crime_df[['YEAR','MONTH','DAY','HOUR','MINUTE']])
+crime_df.set_index('DATE',inplace=True)
+
+# Create dropdown options
+crime_type_options = [{'label': crime_type, 'value': crime_type} for crime_type in crime_df['TYPE'].unique()]
+crime_type_options.insert(0, {'label': 'All', 'value': 'All'})
+neighbourhood_options = [{'label': neighbourhood, 'value': neighbourhood} for neighbourhood in crime_df['NEIGHBOURHOOD'].unique()]
+neighbourhood_options.insert(0, {'label': 'All', 'value': 'All'})
 
 app.layout = dbc.Container([
     dbc.Row([
@@ -126,3 +144,7 @@ def update_map_chart(selected_crime,selected_neighbourhood):
     fig.update_layout(legend=None)
     fig.update_traces(showlegend=False)
     return fig
+
+# Run the app/dashboard
+if __name__ == '__main__':
+    app.run(debug=True)
