@@ -9,7 +9,15 @@ import plotly.express as px
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 server = app.server
 
-crime_data = pd.read_csv("data/processed/crimedata_processed.csv")
+crime_df = pd.read_csv("data/processed/crimedata_processed.csv")
+crime_df['DATE'] = pd.to_datetime(crime_df[['YEAR','MONTH','DAY','HOUR','MINUTE']])
+crime_df.set_index('DATE',inplace=True)
+
+# Create dropdown options
+crime_type_options = [{'label': crime_type, 'value': crime_type} for crime_type in crime_df['TYPE'].unique()]
+crime_type_options.insert(0, {'label': 'All', 'value': 'All'})
+neighbourhood_options = [{'label': neighbourhood, 'value': neighbourhood} for neighbourhood in crime_df['NEIGHBOURHOOD'].unique()]
+neighbourhood_options.insert(0, {'label': 'All', 'value': 'All'})
 
 app.layout = dbc.Container([
     dbc.Row([
@@ -38,12 +46,22 @@ app.layout = dbc.Container([
         dbc.Col([
             dbc.Row([
                 dbc.Col([
-                    html.H3(["Crime Type Filter"
-                    ])
+                    html.H5(["Crime Type:",
+                                 dcc.Dropdown(
+                                    id='crime-type-dropdown',
+                                    options=crime_type_options,
+                                    value='All',  # Default value
+                                    clearable=False,
+                                )]),
                 ]),
                 dbc.Col([
-                    html.H3(["Neighborhood Filter"
-                    ])
+                    html.H5(["Neighbourhood:",
+                            dcc.Dropdown(
+                                id='neighbourhood-dropdown',
+                                options=neighbourhood_options,
+                                value='All',  # Default value
+                                clearable=False,
+                        )]),
                 ]),
             ]),
             dbc.Row([
