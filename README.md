@@ -13,8 +13,8 @@ Our dashboard are hosted on the Render platform, accessible [here](https://dsci-
 
 - The top row displays four static summaries showing the total crime count and the top three crime types alongside their respective crime counts.
 - Use the dropdown filters on the left side of the dashboard to select specific crime types and neighbourhoods of interest. These filters will update the interactive map and time series chart below it.
-- Use the dropdown filter on the upper right side of the dashboard to select a specific neighbourhood of interest to view crime counts per crime type in the bar chart below.
-- Similarly, use the drop down filter on the bottom right side of the dashboard to select specific crime type to view crime counts per neighbourhood in the bar chart underneath.
+- Use the drop down filter on the upper right side of the dashboard to select specific crime type to view crime counts per neighbourhood in the bar chart underneath.
+- Similarly, use the dropdown filter on the bottom right side of the dashboard to select a specific neighbourhood of interest to view crime counts per crime type in the bar chart below.
 
 ### Interacting with Visualizations:
 
