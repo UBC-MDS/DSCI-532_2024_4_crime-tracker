@@ -206,13 +206,14 @@ app.layout = dbc.Container(
                             [
                                 html.H5(
                                     [
-                                        "Crime Count For Crime Type:",
+                                        "Crime Count in each Neighbourhood for ",
                                         dcc.Dropdown(
                                             id="crime-type-dropdown-bar",
                                             options=crime_type_options,
                                             value="All",  # Default value
                                             clearable=False,
                                         ),
+                                        "Crime Type",
                                     ]
                                 ),
                             ]
@@ -222,13 +223,14 @@ app.layout = dbc.Container(
                             [
                                 html.H5(
                                     [
-                                        "Crime Count For Neighbourhood:",
+                                        "Crime Count per Crime Type in ",
                                         dcc.Dropdown(
                                             id="neighbourhood-dropdown-bar",
                                             options=neighbourhood_options,
                                             value="All",  # Default value
                                             clearable=False,
                                         ),
+                                        "Neighbourhood",
                                     ]
                                 ),
                             ]
@@ -320,9 +322,9 @@ def update_map_chart(selected_crime, selected_neighbourhood):
 )
 def update_type_bar_chart(crime_type):
     if crime_type == "All":
-        filtered_df = hourly_df
+        filtered_df = crime_df
     else:
-        filtered_df = hourly_df[(hourly_df["TYPE"] == crime_type)]
+        filtered_df = crime_df[(crime_df["TYPE"] == crime_type)]
 
     aggregated_data = (
         filtered_df.groupby(["NEIGHBOURHOOD"]).size().reset_index(name="COUNT")
@@ -333,7 +335,6 @@ def update_type_bar_chart(crime_type):
         y="COUNT",
         text="COUNT",
         labels={"COUNT": "Crime Count", "NEIGHBOURHOOD": "Neighbourhood"},
-        title=f"Crime Count for {crime_type} Crime",
     )
     fig.update_layout(margin=dict(l=0, r=0, t=30, b=10))
     fig.update_layout(legend=None)
@@ -348,9 +349,9 @@ def update_type_bar_chart(crime_type):
 )
 def update_neighbourhood_bar_chart(crime_neighbourhood):
     if crime_neighbourhood == "All":
-        filtered_df = hourly_df
+        filtered_df = crime_df
     else:
-        filtered_df = hourly_df[(hourly_df["NEIGHBOURHOOD"] == crime_neighbourhood)]
+        filtered_df = crime_df[(crime_df["NEIGHBOURHOOD"] == crime_neighbourhood)]
 
     aggregated_data = filtered_df.groupby(["TYPE"]).size().reset_index(name="COUNT")
     fig = px.bar(
@@ -359,7 +360,6 @@ def update_neighbourhood_bar_chart(crime_neighbourhood):
         y="COUNT",
         text="COUNT",
         labels={"COUNT": "Crime Count", "TYPE": "Crime Type"},
-        title=f"Crime Count for {crime_neighbourhood} Neighbourhood",
     )
     fig.update_layout(margin=dict(l=0, r=0, t=30, b=10))
     fig.update_layout(legend=None)
