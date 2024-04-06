@@ -4,7 +4,6 @@ import pandas as pd
 from dash import Dash, dcc, callback, Output, Input, html
 import plotly.express as px
 
-# Initiatlize the app
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 server = app.server
 
@@ -14,8 +13,6 @@ crime_df.set_index('DATE',inplace=True)
 hourly_df = crime_df.groupby(['TYPE','NEIGHBOURHOOD']).resample('h').size().reset_index(name='COUNT')
 hourly_df['HOUR']=hourly_df['DATE'].dt.strftime('%H')
 
-
-# Create dropdown options
 crime_type_options = [{'label': crime_type, 'value': crime_type} for crime_type in crime_df['TYPE'].unique()]
 crime_type_options.insert(0, {'label': 'All', 'value': 'All'})
 neighbourhood_options = [{'label': neighbourhood, 'value': neighbourhood} for neighbourhood in crime_df['NEIGHBOURHOOD'].unique()]
