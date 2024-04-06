@@ -8,7 +8,7 @@ import plotly.express as px
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 server = app.server
 
-crime_df = pd.read_csv("data/crimedata_processed.csv")
+crime_df = pd.read_csv("data/processed/crimedata_processed.csv")
 crime_df['DATE'] = pd.to_datetime(crime_df[['YEAR','MONTH','DAY','HOUR','MINUTE']])
 crime_df.set_index('DATE',inplace=True)
 
@@ -147,4 +147,4 @@ def update_map_chart(selected_crime,selected_neighbourhood):
 
 # Run the app/dashboard
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
