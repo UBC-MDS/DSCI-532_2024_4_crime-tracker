@@ -69,8 +69,9 @@ app.layout = dbc.Container([
                 ])
             ]),
             dbc.Row([
-                html.H2(["Time Series Chart"
-                ])
+                html.Div([
+                        dcc.Graph(id='crime-line-chart')
+                    ])
             ])
         ], md=9
         ),
@@ -91,6 +92,32 @@ app.layout = dbc.Container([
         )
     ])
 ])
+
+# Define callback to update line chart based on dropdown selection
+@app.callback(
+    Output('crime-line-chart', 'figure'),
+    [Input('crime-type-dropdown', 'value'),
+     Input('neighbourhood-dropdown','value')]
+)
+def update_line_chart(selected_crime,selected_neighbourhood):
+
+    # Hourly data by Crime Type
+    hourly_df = crime_df.groupby(['TYPE','NEIGHBOURHOOD']).resample('h').size().reset_index(name='COUNT')
+    hourly_df['HOUR']=hourly_df['DATE'].dt.strftime('%H')
+
+    if selected_crime == 'All':
+        filtered_df = hourly_df
+    else:
+        filtered_df = hourly_df[(hourly_df['TYPE'] == selected_crime)]
+
+    if selected_neighbourhood != 'All':
+        filtered_df = filtered_df[(filtered_df['NEIGHBOURHOOD'] == selected_neighbourhood)]
+
+    filtered_df = filtered_df.groupby('HOUR').agg({'TYPE': 'first','COUNT': 'sum'}).reset_index()
+    fig = px.line(filtered_df, x='HOUR', y='COUNT', title=f'Hourly Counts for {selected_crime} Crime in {selected_neighbourhood} Neighbourhood',
+                    labels={'HOUR': 'Time [Hour]', 'COUNT': 'Crime Count'})
+    fig.update_traces(mode='lines+markers', line=dict(color='blue'))
+    return fig
 
 # Run the app/dashboard
 if __name__ == '__main__':
