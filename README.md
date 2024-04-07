@@ -27,7 +27,8 @@ Our dashboard are hosted on the Render platform, accessible [here](https://dsci-
 - Any comments and suggestions for improvement can also be logged through the same method.
 - To log a new issue, navigate to the `Issues` tab and select `New` on the upper right. Fill in the title and a brief description and then click `Submit new issue`.
 
-## LINK TO GIF **TO BE REPLACED**
+## LINK TO GIF 
+https://github.com/UBC-MDS/DSCI-532_2024_4_crime-tracker/blob/main/img/demo.gif
 
 ## Developer note:
 
