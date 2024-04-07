@@ -2,7 +2,7 @@
 
 Welcome to the Vancouver Crime Tracker 2023 Dashboard!
 
-# About
+## About
 This "Crime Tracker" dashboard, designed specifically for law enforcement administrators and policymakers in the Vancouver Police Department, provides a comprehensive analytical view of crime data in Vancouver for the year 2023. Users can explore crime patterns based on location, time, and crime categories through interactive visualization and filtering options that empowers informed decision-making for resource allocation, tackling crime reduction. This dashboard features spatial heatmaps, temporal distribution, and summary statistics, offering users valuable insights into crime hotspots, temporal trends and spatial trends across neighborhoods.
 
 ## Usage
@@ -21,14 +21,13 @@ Our dashboard are hosted on the Render platform, accessible [here](https://dsci-
 - Hover over elements in the charts to view detailed statistics via tooltips.
 - Drag the map to explore different areas by clicking and dragging.
 
-### Feedback and Support:
+![](https://github.com/UBC-MDS/DSCI-532_2024_4_crime-tracker/blob/main/img/demo.gif)
+
+## Feedback and Support:
 
 - All feedback is welcomed! If you encounter any issues during your experience, please do not hesitate to reach out via opening a new issue in this repository.
 - Any comments and suggestions for improvement can also be logged through the same method.
 - To log a new issue, navigate to the `Issues` tab and select `New` on the upper right. Fill in the title and a brief description and then click `Submit new issue`.
-
-## LINK TO GIF 
-https://github.com/UBC-MDS/DSCI-532_2024_4_crime-tracker/blob/main/img/demo.gif
 
 ## Developer note:
 
