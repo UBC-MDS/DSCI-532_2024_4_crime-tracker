@@ -47,114 +47,8 @@ app.layout = dbc.Container(
     [
         dbc.Row(
             [
-                html.H1("VANCOUVER CRIME TRACKER 2023", style={"color": "purple"}),
-                html.Br(),
-            ]
-        ),
-        dbc.Row(
-            [
-                dbc.Col(
-                    [
-                        dbc.Card(
-                            [
-                                dbc.CardBody(
-                                    [
-                                        html.H3(
-                                            "Total Crime Count", style={"color": "blue"}
-                                        ),
-                                        html.Br(),
-                                        html.H2(
-                                            crime_df.shape[0], style={"color": "red"}
-                                        ),
-                                    ],
-                                    style={"background-color": "lightgrey"},
-                                )
-                            ]
-                        )
-                    ],
-                    md=3,
-                ),
-                dbc.Col(
-                    [
-                        dbc.Card(
-                            [
-                                dbc.CardBody(
-                                    [
-                                        html.H3(
-                                            crime_df["TYPE"]
-                                            .value_counts()
-                                            .index.tolist()[0],
-                                            style={"color": "blue"},
-                                        ),
-                                        html.Br(),
-                                        html.H2(
-                                            crime_df["TYPE"]
-                                            .value_counts()
-                                            .nlargest(1)[0],
-                                            style={"color": "red"},
-                                        ),
-                                    ],
-                                    style={"background-color": "lightgrey"},
-                                )
-                            ]
-                        )
-                    ],
-                    md=3,
-                ),
-                dbc.Col(
-                    [
-                        dbc.Card(
-                            [
-                                dbc.CardBody(
-                                    [
-                                        html.H3(
-                                            crime_df["TYPE"]
-                                            .value_counts()
-                                            .index.tolist()[1],
-                                            style={"color": "blue"},
-                                        ),
-                                        html.Br(),
-                                        html.H2(
-                                            crime_df["TYPE"]
-                                            .value_counts()
-                                            .nlargest(2)[1],
-                                            style={"color": "red"},
-                                        ),
-                                    ],
-                                    style={"background-color": "lightgrey"},
-                                )
-                            ]
-                        )
-                    ],
-                    md=3,
-                ),
-                dbc.Col(
-                    [
-                        dbc.Card(
-                            [
-                                dbc.CardBody(
-                                    [
-                                        html.H3(
-                                            crime_df["TYPE"]
-                                            .value_counts()
-                                            .index.tolist()[2],
-                                            style={"color": "blue"},
-                                        ),
-                                        html.Br(),
-                                        html.H2(
-                                            crime_df["TYPE"]
-                                            .value_counts()
-                                            .nlargest(3)[2],
-                                            style={"color": "red"},
-                                        ),
-                                    ],
-                                    style={"background-color": "lightgrey"},
-                                ),
-                            ]
-                        )
-                    ],
-                    md=3,
-                ),
+                html.H1("VANCOUVER CRIME TRACKER 2023"),
+                html.Br()
             ]
         ),
         dbc.Row(
@@ -163,89 +57,108 @@ app.layout = dbc.Container(
                     [
                         dbc.Row(
                             [
-                                dbc.Col(
+                                dbc.Card(
                                     [
-                                        html.H5(
+                                        dbc.CardBody(
                                             [
-                                                "Crime Type:",
-                                                dcc.Dropdown(
-                                                    id="crime-type-dropdown",
-                                                    options=crime_type_options,
-                                                    value="All",  # Default value
-                                                    clearable=False,
+                                                html.H3(
+                                                    "Total Crime Count"
                                                 ),
+                                                html.Br(),
+                                                html.H2(
+                                                    crime_df.shape[0]
+                                                )
                                             ]
-                                        ),
+                                        )
                                     ]
-                                ),
-                                dbc.Col(
-                                    [
-                                        html.H5(
-                                            [
-                                                "Neighbourhood:",
-                                                dcc.Dropdown(
-                                                    id="neighbourhood-dropdown",
-                                                    options=neighbourhood_options,
-                                                    value="All",  # Default value
-                                                    clearable=False,
-                                                ),
-                                            ]
-                                        ),
-                                    ]
-                                ),
+                                )
                             ]
                         ),
-                        dbc.Row([html.H2([dcc.Graph(id="crime-map-chart")])]),
-                        dbc.Row([html.Div([dcc.Graph(id="crime-line-chart")])]),
-                    ],
-                    md=9,
-                ),
-                dbc.Col(
-                    [
                         dbc.Row(
                             [
                                 html.H5(
                                     [
-                                        "Crime Count in each Neighbourhood for ",
+                                        "Crime Type:",
                                         dcc.Dropdown(
-                                            id="crime-type-dropdown-bar",
+                                            id="crime-type-dropdown",
                                             options=crime_type_options,
                                             value="All",  # Default value
                                             clearable=False,
                                         ),
-                                        "Crime Type",
                                     ]
-                                ),
+                                )
                             ]
+
                         ),
-                        dbc.Row([html.H2([dcc.Graph(id="crime-type-bar-chat")])]),
                         dbc.Row(
                             [
                                 html.H5(
                                     [
-                                        "Crime Count per Crime Type in ",
+                                        "Neighbourhood:",
                                         dcc.Dropdown(
-                                            id="neighbourhood-dropdown-bar",
+                                            id="neighbourhood-dropdown",
                                             options=neighbourhood_options,
                                             value="All",  # Default value
                                             clearable=False,
                                         ),
-                                        "Neighbourhood",
                                     ]
-                                ),
+                                )
                             ]
                         ),
                         dbc.Row(
-                            [html.H2([dcc.Graph(id="crime-neighbourhood-bar-chat")])]
+                            [
+                                html.H2(
+                                    [
+                                        dcc.Graph(id="crime-type-bar-chat"
+                                        )
+                                    ]
+                                )
+                            ]
                         ),
+                        dbc.Row(
+                            [
+                                html.H2(
+                                    [
+                                        dcc.Graph(id="crime-neighbourhood-bar-chat"
+                                        )
+                                    ]
+                                )
+                            ]
+                        )
                     ],
-                    md=3,
+                    md=3
                 ),
+                dbc.Col(
+                    [
+                        dbc.Row(
+                            [
+                                html.H2(
+                                    [
+                                        dcc.Graph(id="crime-map-chart"
+                                        )
+                                    ]
+                                )
+                            ]
+                        ),
+                        dbc.Row(
+                            [
+                                html.H2(
+                                    [
+                                        dcc.Graph(id="crime-line-chart"
+                                        )
+                                    ]
+                                )
+                            ]
+                        )
+
+                    ],
+                    md=9
+                )
+
             ]
-        ),
+        )
     ]
 )
-
 
 @app.callback(
     Output("crime-line-chart", "figure"),
@@ -318,7 +231,7 @@ def update_map_chart(selected_crime, selected_neighbourhood):
 
 @app.callback(
     Output("crime-type-bar-chat", "figure"),
-    Input("crime-type-dropdown-bar", "value"),
+    Input("crime-type-dropdown", "value"),
 )
 def update_type_bar_chart(crime_type):
     if crime_type == "All":
@@ -345,7 +258,7 @@ def update_type_bar_chart(crime_type):
 
 @app.callback(
     Output("crime-neighbourhood-bar-chat", "figure"),
-    Input("neighbourhood-dropdown-bar", "value"),
+    Input("neighbourhood-dropdown", "value"),
 )
 def update_neighbourhood_bar_chart(crime_neighbourhood):
     if crime_neighbourhood == "All":
