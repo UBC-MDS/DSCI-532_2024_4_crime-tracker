@@ -3,6 +3,7 @@ import dash_vega_components as dvc
 import pandas as pd
 from dash import Dash, dcc, callback, Output, Input, html
 import plotly.express as px
+from time_series_plot import time_series_plot
 
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 server = app.server
@@ -252,28 +253,7 @@ app.layout = dbc.Container(
     [Input("crime-type-dropdown", "value"), Input("neighbourhood-dropdown", "value")],
 )
 def update_line_chart(selected_crime, selected_neighbourhood):
-    if selected_crime == "All":
-        filtered_df = hourly_df
-    else:
-        filtered_df = hourly_df[(hourly_df["TYPE"] == selected_crime)]
-
-    if selected_neighbourhood != "All":
-        filtered_df = filtered_df[
-            (filtered_df["NEIGHBOURHOOD"] == selected_neighbourhood)
-        ]
-
-    filtered_df = (
-        filtered_df.groupby("HOUR").agg({"TYPE": "first", "COUNT": "sum"}).reset_index()
-    )
-    fig = px.line(
-        filtered_df,
-        x="HOUR",
-        y="COUNT",
-        title=f"Hourly Counts for {selected_crime} Crime in {selected_neighbourhood} Neighbourhood",
-        labels={"HOUR": "Time [Hour]", "COUNT": "Crime Count"},
-    )
-    fig.update_traces(mode="lines+markers", line=dict(color="blue"))
-    return fig
+    return time_series_plot(hourly_df,selected_crime,selected_neighbourhood, "Blue")
 
 
 @app.callback(
