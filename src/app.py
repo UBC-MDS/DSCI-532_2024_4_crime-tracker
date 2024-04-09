@@ -3,7 +3,7 @@ import dash_vega_components as dvc
 import pandas as pd
 from dash import Dash, dcc, callback, Output, Input, html
 import plotly.express as px
-from time_series_plot import time_series_plot
+from src.time_series_plot import time_series_plot
 
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 server = app.server
