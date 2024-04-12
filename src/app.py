@@ -156,7 +156,7 @@ def update_line_chart(selected_crime, selected_neighbourhood):
         labels={"HOUR": "Time [Hour]", "COUNT": "Crime Count"},
         color_discrete_sequence=[color_mapping[selected_crime]],
     )
-    fig.update_traces(mode="lines+markers", line=dict(color="blue"))
+    fig.update_traces(mode="lines+markers")
     return fig
 
 
