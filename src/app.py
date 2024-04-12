@@ -19,6 +19,19 @@ crime_type_mapping = {
     "Vehicle Collision or Pedestrian Struck (with Injury)": "Collision Injury",
 }
 
+color_mapping = {
+    "All": "#636EFA",
+    "B&E Comm": "#636EFA",  # blue
+    "B&E Res/Other": "#EF553B",  # red-orange
+    "Mischief": "#00CC96",  # teal
+    "Offence Person": "#AB63FA",  # purple
+    "Other Theft": "#FFA15A",  # orange
+    "Theft Vehicle": "#19D3F3",  # light blue
+    "Theft Bicycle": "#FF6692",  # pink
+    "Theft of Vehicle": "#B6E880",  # light green
+    "Collision Fatal": "#FF97FF",  # magenta
+    "Collision Injury": "#FECB52",  # yellow
+}
 
 crime_df = pd.read_csv("data/processed/crimedata_processed.csv")
 crime_df["TYPE"] = crime_df["TYPE"].replace(crime_type_mapping)
@@ -45,12 +58,7 @@ neighbourhood_options.insert(0, {"label": "All", "value": "All"})
 
 app.layout = dbc.Container(
     [
-        dbc.Row(
-            [
-                html.H1("VANCOUVER CRIME TRACKER 2023"),
-                html.Br()
-            ]
-        ),
+        dbc.Row([html.H1("VANCOUVER CRIME TRACKER 2023"), html.Br()]),
         dbc.Row(
             [
                 dbc.Col(
@@ -61,13 +69,9 @@ app.layout = dbc.Container(
                                     [
                                         dbc.CardBody(
                                             [
-                                                html.H3(
-                                                    "Total Crime Count"
-                                                ),
+                                                html.H3("Total Crime Count"),
                                                 html.Br(),
-                                                html.H2(
-                                                    crime_df.shape[0]
-                                                )
+                                                html.H2(crime_df.shape[0]),
                                             ]
                                         )
                                     ]
@@ -84,11 +88,11 @@ app.layout = dbc.Container(
                                             options=crime_type_options,
                                             value="All",  # Default value
                                             clearable=False,
+                                            # multi=True,
                                         ),
                                     ]
                                 )
                             ]
-
                         ),
                         dbc.Row(
                             [
@@ -100,65 +104,31 @@ app.layout = dbc.Container(
                                             options=neighbourhood_options,
                                             value="All",  # Default value
                                             clearable=False,
+                                            # multi=True,
                                         ),
                                     ]
                                 )
                             ]
                         ),
+                        dbc.Row([html.H2([dcc.Graph(id="crime-type-bar-chat")])]),
                         dbc.Row(
-                            [
-                                html.H2(
-                                    [
-                                        dcc.Graph(id="crime-type-bar-chat"
-                                        )
-                                    ]
-                                )
-                            ]
+                            [html.H2([dcc.Graph(id="crime-neighbourhood-bar-chat")])]
                         ),
-                        dbc.Row(
-                            [
-                                html.H2(
-                                    [
-                                        dcc.Graph(id="crime-neighbourhood-bar-chat"
-                                        )
-                                    ]
-                                )
-                            ]
-                        )
                     ],
-                    md=3
+                    md=3,
                 ),
                 dbc.Col(
                     [
-                        dbc.Row(
-                            [
-                                html.H2(
-                                    [
-                                        dcc.Graph(id="crime-map-chart"
-                                        )
-                                    ]
-                                )
-                            ]
-                        ),
-                        dbc.Row(
-                            [
-                                html.H2(
-                                    [
-                                        dcc.Graph(id="crime-line-chart"
-                                        )
-                                    ]
-                                )
-                            ]
-                        )
-
+                        dbc.Row([html.H2([dcc.Graph(id="crime-map-chart")])]),
+                        dbc.Row([html.H2([dcc.Graph(id="crime-line-chart")])]),
                     ],
-                    md=9
-                )
-
+                    md=9,
+                ),
             ]
-        )
+        ),
     ]
 )
+
 
 @app.callback(
     Output("crime-line-chart", "figure"),
@@ -184,6 +154,7 @@ def update_line_chart(selected_crime, selected_neighbourhood):
         y="COUNT",
         title=f"Hourly Counts for {selected_crime} Crime in {selected_neighbourhood} Neighbourhood",
         labels={"HOUR": "Time [Hour]", "COUNT": "Crime Count"},
+        color_discrete_sequence=[color_mapping[selected_crime]],
     )
     fig.update_traces(mode="lines+markers", line=dict(color="blue"))
     return fig
@@ -218,7 +189,7 @@ def update_map_chart(selected_crime, selected_neighbourhood):
         lon="Y",
         color="TYPE",
         title=f"Crime Location for {selected_crime} Crime in {selected_neighbourhood} Neighbourhood",
-        color_continuous_scale="RdYlGn_r",
+        color_discrete_map=color_mapping,
         center={"lat": 49.26914, "lon": -123.11226},
         zoom=11,
         mapbox_style="carto-positron",
@@ -242,12 +213,14 @@ def update_type_bar_chart(crime_type):
     aggregated_data = (
         filtered_df.groupby(["NEIGHBOURHOOD"]).size().reset_index(name="COUNT")
     )
+    aggregated_data = aggregated_data.sort_values("COUNT", ascending=False)
     fig = px.bar(
         aggregated_data,
         x="NEIGHBOURHOOD",
         y="COUNT",
         text="COUNT",
         labels={"COUNT": "Crime Count", "NEIGHBOURHOOD": "Neighbourhood"},
+        color_discrete_sequence=[color_mapping[crime_type]],
     )
     fig.update_layout(margin=dict(l=0, r=0, t=30, b=10))
     fig.update_layout(legend=None)
@@ -267,12 +240,15 @@ def update_neighbourhood_bar_chart(crime_neighbourhood):
         filtered_df = crime_df[(crime_df["NEIGHBOURHOOD"] == crime_neighbourhood)]
 
     aggregated_data = filtered_df.groupby(["TYPE"]).size().reset_index(name="COUNT")
+    aggregated_data = aggregated_data.sort_values("COUNT", ascending=False)
     fig = px.bar(
         aggregated_data,
         x="TYPE",
         y="COUNT",
         text="COUNT",
         labels={"COUNT": "Crime Count", "TYPE": "Crime Type"},
+        color="TYPE",  # Now 'TYPE' will be used for discrete color mapping
+        color_discrete_map=color_mapping,
     )
     fig.update_layout(margin=dict(l=0, r=0, t=30, b=10))
     fig.update_layout(legend=None)
