@@ -1,10 +1,14 @@
 import pandas as pd
-from dash import Dash, dcc, callback, Output, Input, html
+from dash import callback, Output, Input
 import plotly.express as px
 from preprocessing import preprocessor, color_mapping
 
+crime_df, hourly_df = preprocessor(
+    pd.read_csv("data/processed/crimedata_processed.csv")
+)
 
-@app.callback(
+
+@callback(
     Output("crime-line-chart", "figure"),
     [Input("crime-type-dropdown", "value"), Input("neighbourhood-dropdown", "value")],
 )
@@ -34,7 +38,7 @@ def update_line_chart(selected_crime, selected_neighbourhood):
     return fig
 
 
-@app.callback(
+@callback(
     Output("crime-map-chart", "figure"),
     [Input("crime-type-dropdown", "value"), Input("neighbourhood-dropdown", "value")],
 )
@@ -74,7 +78,7 @@ def update_map_chart(selected_crime, selected_neighbourhood):
     return fig
 
 
-@app.callback(
+@callback(
     Output("crime-type-bar-chat", "figure"),
     Input("crime-type-dropdown", "value"),
 )
@@ -103,7 +107,7 @@ def update_type_bar_chart(crime_type):
     return fig
 
 
-@app.callback(
+@callback(
     Output("crime-neighbourhood-bar-chat", "figure"),
     Input("neighbourhood-dropdown", "value"),
 )
