@@ -2,7 +2,7 @@ import dash_bootstrap_components as dbc
 import dash_vega_components as dvc
 import pandas as pd
 from dash import Dash, dcc, html
-from preprocessing import preprocessor
+from src.preprocessing import preprocessor
 
 crime_df, hourly_df = preprocessor(
     pd.read_csv("data/processed/crimedata_processed.csv")

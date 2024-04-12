@@ -1,7 +1,7 @@
 import pandas as pd
 from dash import callback, Output, Input
 import plotly.express as px
-from preprocessing import preprocessor, color_mapping
+from src.preprocessing import preprocessor, color_mapping
 
 crime_df, hourly_df = preprocessor(
     pd.read_csv("data/processed/crimedata_processed.csv")
