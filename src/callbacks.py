@@ -13,15 +13,16 @@ crime_df, hourly_df = preprocessor(
     [Input("crime-type-dropdown", "value"), Input("neighbourhood-dropdown", "value")],
 )
 def update_line_chart(selected_crime, selected_neighbourhood):
-    if selected_crime == "All":
-        filtered_df = hourly_df
-    else:
-        filtered_df = hourly_df[(hourly_df["TYPE"] == selected_crime)]
 
-    if selected_neighbourhood != "All":
-        filtered_df = filtered_df[
-            (filtered_df["NEIGHBOURHOOD"] == selected_neighbourhood)
-        ]
+    filtered_df = hourly_df[(hourly_df["TYPE"].isin(selected_crime))]
+
+    filtered_df = filtered_df[
+        (filtered_df["NEIGHBOURHOOD"].isin(selected_neighbourhood))
+    ]
+    if len(selected_crime) > 1:
+        combined_color = "#636EFA"
+    else:
+        combined_color = color_mapping[selected_crime[0]]
 
     filtered_df = (
         filtered_df.groupby("HOUR").agg({"TYPE": "first", "COUNT": "sum"}).reset_index()
@@ -32,7 +33,7 @@ def update_line_chart(selected_crime, selected_neighbourhood):
         y="COUNT",
         title=f"Hourly Counts for {selected_crime} Crime in {selected_neighbourhood} Neighbourhood",
         labels={"HOUR": "Time [Hour]", "COUNT": "Crime Count"},
-        color_discrete_sequence=[color_mapping[selected_crime]],
+        color_discrete_sequence=[combined_color],
     )
     fig.update_traces(mode="lines+markers")
     return fig
@@ -44,22 +45,11 @@ def update_line_chart(selected_crime, selected_neighbourhood):
 )
 def update_map_chart(selected_crime, selected_neighbourhood):
 
-    if selected_neighbourhood == "All":
-        if selected_crime == "All":
-            filtered_df = crime_df
-        else:
-            filtered_df = crime_df[(crime_df["TYPE"] == selected_crime)]
-    else:
-        if selected_crime == "All":
-            filtered_df = crime_df
-            filtered_df = filtered_df[
-                (filtered_df["NEIGHBOURHOOD"] == selected_neighbourhood)
-            ]
-        else:
-            filtered_df = crime_df[(crime_df["TYPE"] == selected_crime)]
-            filtered_df = filtered_df[
-                (filtered_df["NEIGHBOURHOOD"] == selected_neighbourhood)
-            ]
+    filtered_df = crime_df[(crime_df["TYPE"].isin(selected_crime))]
+
+    filtered_df = filtered_df[
+        (filtered_df["NEIGHBOURHOOD"].isin(selected_neighbourhood))
+    ]
 
     fig = px.scatter_mapbox(
         filtered_df.dropna(subset=["NEIGHBOURHOOD", "TYPE"]),
@@ -82,11 +72,15 @@ def update_map_chart(selected_crime, selected_neighbourhood):
     Output("crime-type-bar-chat", "figure"),
     Input("crime-type-dropdown", "value"),
 )
-def update_type_bar_chart(crime_type):
-    if crime_type == "All":
-        filtered_df = crime_df
+def update_type_bar_chart(selected_crime):
+    print(selected_crime)
+
+    filtered_df = crime_df[(crime_df["TYPE"].isin(selected_crime))]
+
+    if len(selected_crime) > 1:
+        combined_color = "#636EFA"
     else:
-        filtered_df = crime_df[(crime_df["TYPE"] == crime_type)]
+        combined_color = color_mapping[selected_crime[0]]
 
     aggregated_data = (
         filtered_df.groupby(["NEIGHBOURHOOD"]).size().reset_index(name="COUNT")
@@ -98,7 +92,7 @@ def update_type_bar_chart(crime_type):
         y="COUNT",
         text="COUNT",
         labels={"COUNT": "Crime Count", "NEIGHBOURHOOD": "Neighbourhood"},
-        color_discrete_sequence=[color_mapping[crime_type]],
+        color_discrete_sequence=[combined_color],
     )
     fig.update_layout(margin=dict(l=0, r=0, t=30, b=10))
     fig.update_layout(legend=None)
@@ -111,11 +105,9 @@ def update_type_bar_chart(crime_type):
     Output("crime-neighbourhood-bar-chat", "figure"),
     Input("neighbourhood-dropdown", "value"),
 )
-def update_neighbourhood_bar_chart(crime_neighbourhood):
-    if crime_neighbourhood == "All":
-        filtered_df = crime_df
-    else:
-        filtered_df = crime_df[(crime_df["NEIGHBOURHOOD"] == crime_neighbourhood)]
+def update_neighbourhood_bar_chart(selected_neighbourhood):
+
+    filtered_df = crime_df[(crime_df["NEIGHBOURHOOD"].isin(selected_neighbourhood))]
 
     aggregated_data = filtered_df.groupby(["TYPE"]).size().reset_index(name="COUNT")
     aggregated_data = aggregated_data.sort_values("COUNT", ascending=False)

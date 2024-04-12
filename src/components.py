@@ -13,14 +13,14 @@ crime_type_options = [
     for crime_type in crime_df["TYPE"].unique()
 ]
 
-crime_type_options.insert(0, {"label": "All", "value": "All"})
+# crime_type_options.insert(0, {"label": "All", "value": "All"})
 
 neighbourhood_options = [
     {"label": neighbourhood, "value": neighbourhood}
     for neighbourhood in crime_df["NEIGHBOURHOOD"].unique()
 ]
 
-neighbourhood_options.insert(0, {"label": "All", "value": "All"})
+# neighbourhood_options.insert(0, {"label": "All", "value": "All"})
 
 
 title = html.H1("VANCOUVER CRIME TRACKER 2023")
@@ -43,9 +43,9 @@ crime_type_dropdown = html.H5(
         dcc.Dropdown(
             id="crime-type-dropdown",
             options=crime_type_options,
-            value="All",  # Default value
+            value=["Theft Vehicle"],  # Default value
             clearable=False,
-            # multi=True,
+            multi=True,
         ),
     ]
 )
@@ -56,9 +56,9 @@ neighbourhood_dropdown = html.H5(
         dcc.Dropdown(
             id="neighbourhood-dropdown",
             options=neighbourhood_options,
-            value="All",  # Default value
+            value=["Kitsilano"],  # Default value
             clearable=False,
-            # multi=True,
+            multi=True,
         ),
     ]
 )
