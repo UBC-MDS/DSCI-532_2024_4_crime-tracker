@@ -48,7 +48,7 @@ app.layout = dbc.Container(
                         ),
                         dbc.Row(
                             [
-                                html.H5(
+                                html.H2(
                                     [
                                         "Crime Type:",
                                         dcc.Dropdown(
@@ -64,7 +64,7 @@ app.layout = dbc.Container(
                         ),
                         dbc.Row(
                             [
-                                html.H5(
+                                html.H2(
                                     [
                                         "Neighbourhood:",
                                         dcc.Dropdown(
