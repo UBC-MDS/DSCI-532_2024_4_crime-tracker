@@ -3,24 +3,11 @@ import dash_vega_components as dvc
 import pandas as pd
 from dash import Dash, dcc, callback, Output, Input, html
 import plotly.express as px
-from preprocessing import preprocessor
+from preprocessing import preprocessor, color_mapping
 
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 server = app.server
 
-color_mapping = {
-    "All": "#636EFA",
-    "B&E Comm": "#636EFA",  # blue
-    "B&E Res/Other": "#EF553B",  # red-orange
-    "Mischief": "#00CC96",  # teal
-    "Offence Person": "#AB63FA",  # purple
-    "Other Theft": "#FFA15A",  # orange
-    "Theft Vehicle": "#19D3F3",  # light blue
-    "Theft Bicycle": "#FF6692",  # pink
-    "Theft of Vehicle": "#B6E880",  # light green
-    "Collision Fatal": "#FF97FF",  # magenta
-    "Collision Injury": "#FECB52",  # yellow
-}
 
 crime_df, hourly_df = preprocessor(
     pd.read_csv("data/processed/crimedata_processed.csv")
