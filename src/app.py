@@ -4,8 +4,8 @@ import dash_vega_components as dvc
 from dash import Dash
 
 # the following is our files
-import callbacks
-from components import (
+import src.callbacks
+from src.components import (
     title,
     datacard,
     crime_type_dropdown,

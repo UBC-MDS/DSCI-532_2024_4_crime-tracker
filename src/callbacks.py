@@ -1,7 +1,7 @@
 import pandas as pd
 from dash import callback, Output, Input
 import plotly.express as px
-from preprocessing import preprocessor, color_mapping
+from src.preprocessing import preprocessor, color_mapping
 
 crime_df, hourly_df = preprocessor(
     pd.read_csv("data/processed/crimedata_processed.csv")
@@ -31,7 +31,7 @@ def update_line_chart(selected_crime, selected_neighbourhood):
         filtered_df,
         x="HOUR",
         y="COUNT",
-        title=f"Hourly Counts for {selected_crime} Crime in {selected_neighbourhood} Neighbourhood",
+        title=f"Hourly Counts",
         labels={"HOUR": "Time [Hour]", "COUNT": "Crime Count"},
         color_discrete_sequence=[combined_color],
     )
@@ -56,7 +56,7 @@ def update_map_chart(selected_crime, selected_neighbourhood):
         lat="X",
         lon="Y",
         color="TYPE",
-        title=f"Crime Location for {selected_crime} Crime in {selected_neighbourhood} Neighbourhood",
+        title=f"Crime Location",
         color_discrete_map=color_mapping,
         center={"lat": 49.26914, "lon": -123.11226},
         zoom=11,
