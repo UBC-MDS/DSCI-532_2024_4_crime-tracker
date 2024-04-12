@@ -13,15 +13,10 @@ crime_type_options = [
     for crime_type in crime_df["TYPE"].unique()
 ]
 
-# crime_type_options.insert(0, {"label": "All", "value": "All"})
-
 neighbourhood_options = [
     {"label": neighbourhood, "value": neighbourhood}
     for neighbourhood in crime_df["NEIGHBOURHOOD"].unique()
 ]
-
-# neighbourhood_options.insert(0, {"label": "All", "value": "All"})
-
 
 title = html.H1("VANCOUVER CRIME TRACKER 2023")
 
