@@ -14,8 +14,7 @@ crime_type_mapping = {
 }
 
 color_mapping = {
-    "All": "#636EFA",
-    "B&E Comm": "#636EFA",  # blue
+    "B&E Comm": "#6C6EBA",  # dark purple
     "B&E Res/Other": "#EF553B",  # red-orange
     "Mischief": "#00CC96",  # teal
     "Offence Person": "#AB63FA",  # purple
