@@ -24,9 +24,9 @@ datacard = dbc.Card(
     [
         dbc.CardBody(
             [
-                html.H3("Total Crime Count"),
+                html.H3("Selected Crime Count"),
                 html.Br(),
-                html.H2(crime_df.shape[0]),
+                html.H3(id="crime-count"),
             ]
         )
     ]
