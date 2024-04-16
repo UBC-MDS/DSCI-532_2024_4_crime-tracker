@@ -131,8 +131,8 @@ def update_neighbourhood_bar_chart(selected_neighbourhood):
     [Input("crime-type-dropdown", "value"), Input("neighbourhood-dropdown", "value")],
 )
 def update_crime_count_card(selected_crime, selected_neighbourhood):
-
+    total_count = len(crime_df)
     filtered_df = crime_df[(crime_df["TYPE"].isin(selected_crime)) & (crime_df["NEIGHBOURHOOD"].isin(selected_neighbourhood))]
     count = len(filtered_df)
 
-    return f'{count} out of 5099'
+    return f'{count} out of {total_count}'
