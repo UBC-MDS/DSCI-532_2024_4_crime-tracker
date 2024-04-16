@@ -2,14 +2,15 @@
 
 /* Style for the body */
 .body {
-    background-color: #b5aeae; /* Light grey background */
+    /*background-color: #b5aeae; /* Light grey background */
+    background: rgb(63,94,251);
+    background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(247,247,247,1) 100%) 
 }
 
 .sidebar {
     margin-top: 20px;
     background-color: #324e7b; /* Navy blue background */
     border-radius: 15px; /* Rounded corners for the sidebar */
-    margin-bottom: 100px; /* Space at the bottom of the sidebar */
     margin-left: 0; /* Remove the default margin */
     padding: 2; /* Remove padding from all sides */
     height: 100vh;  /* vh = "viewport height" = 100% of the window height */
@@ -17,25 +18,24 @@
 }
 
 
-.text-muted {
-    /* font-size: 18px; */ 
-    text-align: justify;
-}
-
 .sidebar-footer {
     font-size: 20px;
 }
 
 /* Style for the titles above the dropdowns */
 .dropdown-title {
-    margin-bottom: 0.5rem; /* Space below the title */
-    color: #4c0101; /* Dark grey text for better readability */
+    margin-bottom: 0.35rem; /* Space below the title */
+    color: #e65b64; /* red text for better readability */
     font-weight: bold; /* Make the title text bold */
+    padding : 1;
 }
 
 /* Style for the dropdown components to give them consistent appearance */
-.custom-dropdown {
-    margin-bottom: 1rem; /* Space below the dropdown */
+.inside-dropdown {
+    margin-bottom: 0.25rem; /* Space below the dropdown */
+    padding:0.5;
+    color: #324e7b;
+    font-size: x-small;
 }
 
 .card-total-crime {
@@ -51,12 +51,19 @@
 .title {
     text-align :center;
     font-weight : bold;
-    font-size: 32px;
+    font-size: 36px;
     color: #e65b64;
     }
 
 .text-muted {
     font-size: 16px;
     text-align: center; 
+    color: #f9f9f9; 
+    }
+
+.plot-title {
+    font-size: 16px;
+    text-align: center; 
     color: #e65b64; 
+    font-weight : bold;
     }

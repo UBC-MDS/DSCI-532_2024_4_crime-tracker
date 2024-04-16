@@ -45,10 +45,9 @@ crime_type_dropdown = html.H5(
             value=["Theft Vehicle"],  # Default value
             clearable=False,
             multi=True,
-            style={'color':'#324e7b',
-                   'padding':1},
+            className ="inside-dropdown"
         ),
-    ]
+    ], className ="dropdown-title"
 )
 
 neighbourhood_dropdown = html.H5(
@@ -60,10 +59,9 @@ neighbourhood_dropdown = html.H5(
             value=["Kitsilano"],  # Default value
             clearable=False,
             multi=True,
-            style={'color':'#324e7b',
-                   'padding':1},
+            className ="inside-dropdown",
         ),
-    ]
+    ], className ="dropdown-title"
 )
 
 crime_type_bar_chart = html.H2([dcc.Graph(id="crime-type-bar-chat")])
@@ -89,13 +87,23 @@ sidebar = dbc.Col([
         style={'margin-bottom': '0px', 'padding-bottom': '0px'}),
     html.Br(),
     html.Div([
-        html.P("Contributors: @Thomas, @Mo, @Sharon, @Waleed"),
+        html.P([
+    "Contributors: ",
+    html.A("@Thomas", href="https://github.com/786213750", target="_blank"),
+    "; ",
+    html.A("@Mo", href="https://github.com/MoNorouzi23", target="_blank"),
+    "; ",
+    html.A("@Sharon", href="https://github.com/s-voon", target="_blank"),
+    "; ",
+    html.A("@Waleed", href="https://github.com/WaleedMahmood1", target="_blank")
+], className='text-muted')
+,
         html.P(html.A(href="https://github.com/UBC-MDS/DSCI-532_2024_4_crime-tracker",
                       target="_blank",
                       children=html.Img(src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg",
-                      style={'width': '40px', 'height': '40px', 'padding': '5px'}))
+                      style={'width': '40px', 'height': '40px', 'padding': '5px', 'text-align': 'center'}))
         )
     ])
     ],
-    md=2, className="sidebar"
+    md=3, className="sidebar",
 )

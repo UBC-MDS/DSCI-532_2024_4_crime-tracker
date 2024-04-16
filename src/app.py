@@ -24,18 +24,18 @@ app.layout = dbc.Container([
             dbc.Row([neighbourhood_bar_chart]),
             dbc.Row([crime_type_bar_chart]),
         ],
-        md=4
+        md=4,
         ),
         dbc.Col([
             dbc.Row([crime_map_chart]),
             dbc.Row([crime_line_chart]),
         ],
-        md=6,
+        md=5,
         ),
     ])
-])
+],fluid = True)
 
-
+app.run_server(host='127.0.0.1', port=8054, debug=True)
 # Run the app/dashboard
 if __name__ == "__main__":
     app.run(debug=False)
