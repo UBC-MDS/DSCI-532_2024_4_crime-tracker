@@ -19,10 +19,7 @@ neighbourhood_options = [
 ]
 
 title = html.H3("CRIME TRACKER 2023",
-                style={
-                    'text-align' :'center',
-                    'font-weight' : 'bold'
-                })
+                className = "title")
 
 datacard = dbc.Card(
     [
@@ -36,11 +33,7 @@ datacard = dbc.Card(
                 'font-weight' : 'bold'
             }
         )
-    ],
-    style={
-        'color':'#324e7b',
-        'border-radius': 30
-    }
+    ], className= "card-total-crime"
 )
 
 crime_type_dropdown = html.H5(
@@ -90,7 +83,10 @@ sidebar = dbc.Col([
     html.Br() ,
     crime_type_dropdown,
     html.Br(),
-    html.Br(),
+    html.P(
+        "This dashboard designed specifically for law enforcement administrators and policymakers in the Vancouver Police Department.",  # Description text
+        className='text-muted',
+        style={'margin-bottom': '0px', 'padding-bottom': '0px'}),
     html.Br(),
     html.Div([
         html.P("Contributors: @Thomas, @Mo, @Sharon, @Waleed"),
@@ -101,13 +97,5 @@ sidebar = dbc.Col([
         )
     ])
     ],
-    md=2,
-    style={
-        'background-color':'#324e7b',
-        'padding':5,
-        'border-radius':3,
-        'color':'white',
-        'margin-top': 20
-
-    }
+    md=2, className="sidebar"
 )
