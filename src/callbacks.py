@@ -36,6 +36,7 @@ def update_line_chart(selected_crime, selected_neighbourhood):
         color_discrete_sequence=[combined_color],
     )
     fig.update_traces(mode="lines+markers")
+    fig.update_layout(margin=dict(l=0, r=0, t=30, b=10))
     return fig
 
 

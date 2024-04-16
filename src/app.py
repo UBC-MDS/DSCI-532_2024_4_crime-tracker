@@ -6,46 +6,34 @@ from dash import Dash
 # the following is our files
 import src.callbacks
 from src.components import (
-    title,
-    datacard,
-    crime_type_dropdown,
-    neighbourhood_dropdown,
     crime_type_bar_chart,
     neighbourhood_bar_chart,
     crime_map_chart,
     crime_line_chart,
+    sidebar
 )
 
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 server = app.server
 
 
-app.layout = dbc.Container(
-    [
-        dbc.Row([title, html.Br()]),
-        dbc.Row(
-            [
-                dbc.Col(
-                    [
-                        dbc.Row([datacard]),
-                        dbc.Row([crime_type_dropdown]),
-                        dbc.Row([neighbourhood_dropdown]),
-                        dbc.Row([crime_type_bar_chart]),
-                        dbc.Row([neighbourhood_bar_chart]),
-                    ],
-                    md=3,
-                ),
-                dbc.Col(
-                    [
-                        dbc.Row([crime_map_chart]),
-                        dbc.Row([crime_line_chart]),
-                    ],
-                    md=9,
-                ),
-            ]
+app.layout = dbc.Container([
+    dbc.Row([
+        sidebar,
+        dbc.Col([
+            dbc.Row([neighbourhood_bar_chart]),
+            dbc.Row([crime_type_bar_chart]),
+        ],
+        md=4
         ),
-    ]
-)
+        dbc.Col([
+            dbc.Row([crime_map_chart]),
+            dbc.Row([crime_line_chart]),
+        ],
+        md=6,
+        ),
+    ])
+])
 
 
 # Run the app/dashboard

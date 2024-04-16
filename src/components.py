@@ -18,18 +18,29 @@ neighbourhood_options = [
     for neighbourhood in crime_df["NEIGHBOURHOOD"].unique()
 ]
 
-title = html.H1("VANCOUVER CRIME TRACKER 2023")
+title = html.H3("CRIME TRACKER 2023",
+                style={
+                    'text-align' :'center',
+                    'font-weight' : 'bold'
+                })
 
 datacard = dbc.Card(
     [
         dbc.CardBody(
             [
                 html.H3("Selected Crime Count"),
-                html.Br(),
                 html.H3(id="crime-count"),
-            ]
+            ],
+            style={
+                'text-align' : 'center',
+                'font-weight' : 'bold'
+            }
         )
-    ]
+    ],
+    style={
+        'color':'#324e7b',
+        'border-radius': 30
+    }
 )
 
 crime_type_dropdown = html.H5(
@@ -41,6 +52,8 @@ crime_type_dropdown = html.H5(
             value=["Theft Vehicle"],  # Default value
             clearable=False,
             multi=True,
+            style={'color':'#324e7b',
+                   'padding':1},
         ),
     ]
 )
@@ -54,6 +67,8 @@ neighbourhood_dropdown = html.H5(
             value=["Kitsilano"],  # Default value
             clearable=False,
             multi=True,
+            style={'color':'#324e7b',
+                   'padding':1},
         ),
     ]
 )
@@ -65,3 +80,34 @@ neighbourhood_bar_chart = html.H2([dcc.Graph(id="crime-neighbourhood-bar-chat")]
 crime_map_chart = html.H2([dcc.Graph(id="crime-map-chart")])
 
 crime_line_chart = html.H2([dcc.Graph(id="crime-line-chart")])
+
+sidebar = dbc.Col([
+    title,
+    html.Br(),
+    datacard,
+    html.Br(),
+    neighbourhood_dropdown,
+    html.Br() ,
+    crime_type_dropdown,
+    html.Br(),
+    html.Br(),
+    html.Br(),
+    html.Div([
+        html.P("Contributors: @Thomas, @Mo, @Sharon, @Waleed"),
+        html.P(html.A(href="https://github.com/UBC-MDS/DSCI-532_2024_4_crime-tracker",
+                      target="_blank",
+                      children=html.Img(src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg",
+                      style={'width': '40px', 'height': '40px', 'padding': '5px'}))
+        )
+    ])
+    ],
+    md=2,
+    style={
+        'background-color':'#324e7b',
+        'padding':5,
+        'border-radius':3,
+        'color':'white',
+        'margin-top': 20
+
+    }
+)
