@@ -28,8 +28,8 @@ datacard = dbc.Card(
     [
         dbc.CardBody(
             [
-                html.H3("Selected Crime Count"),
-                html.H3(id="crime-count"),
+                html.H5("Selected Crime Count"),
+                html.H5(id="crime-count"),
             ],
             style={
                 'text-align' : 'center',
