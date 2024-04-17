@@ -32,7 +32,7 @@ app.layout = dbc.Container([
         ],
         md=5,
         ),
-    ])
+    ], className = "body")
 ],fluid = True)
 
 app.run_server(host='127.0.0.1', port=8054, debug=True)

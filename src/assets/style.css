@@ -3,18 +3,19 @@
 /* Style for the body */
 .body {
     /*background-color: #b5aeae; /* Light grey background */
-    background: rgb(63,94,251);
-    background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(247,247,247,1) 100%) 
+    background: rgb(255,255,255);
+    background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(232,232,232,1) 100%, rgba(150,150,150,1) 100%); 
 }
 
 .sidebar {
     margin-top: 20px;
-    background-color: #324e7b; /* Navy blue background */
+    background-color: #758eb6; /* Navy blue background */
     border-radius: 15px; /* Rounded corners for the sidebar */
     margin-left: 0; /* Remove the default margin */
     padding: 2; /* Remove padding from all sides */
     height: 100vh;  /* vh = "viewport height" = 100% of the window height */
     padding-bottom: 0;  /* Remove bottom padding for footer */
+    padding-left: 5;
 }
 
 
@@ -25,7 +26,7 @@
 /* Style for the titles above the dropdowns */
 .dropdown-title {
     margin-bottom: 0.35rem; /* Space below the title */
-    color: #e65b64; /* red text for better readability */
+    color: #cb212c; /* red text for better readability */
     font-weight: bold; /* Make the title text bold */
     padding : 1;
 }
@@ -52,7 +53,7 @@
     text-align :center;
     font-weight : bold;
     font-size: 36px;
-    color: #e65b64;
+    color: #cb212c;
     }
 
 .text-muted {
@@ -64,6 +65,6 @@
 .plot-title {
     font-size: 16px;
     text-align: center; 
-    color: #e65b64; 
+    color: #cb212c; 
     font-weight : bold;
     }

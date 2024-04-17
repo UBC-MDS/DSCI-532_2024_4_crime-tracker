@@ -101,7 +101,7 @@ sidebar = dbc.Col([
         html.P(html.A(href="https://github.com/UBC-MDS/DSCI-532_2024_4_crime-tracker",
                       target="_blank",
                       children=html.Img(src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg",
-                      style={'width': '40px', 'height': '40px', 'padding': '5px', 'text-align': 'center'}))
+                      style={'width': '40px', 'height': '40px', 'padding': '5px'})), style={'text-align': 'center'}
         )
     ])
     ],
