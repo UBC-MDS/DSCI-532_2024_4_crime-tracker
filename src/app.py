@@ -35,7 +35,6 @@ app.layout = dbc.Container([
     ], className = "body")
 ],fluid = True)
 
-app.run_server(host='127.0.0.1', port=8054, debug=True)
 # Run the app/dashboard
 if __name__ == "__main__":
     app.run(debug=False)
