@@ -12,7 +12,7 @@
     background-color: #758eb6; /* Navy blue background */
     border-radius: 15px; /* Rounded corners for the sidebar */
     margin-left: 0; /* Remove the default margin */
-    padding: 2; /* Remove padding from all sides */
+    padding: 2; /* padding from all sides */
     height: 100vh;  /* vh = "viewport height" = 100% of the window height */
     padding-bottom: 0;  /* Remove bottom padding for footer */
     padding-left: 5;
