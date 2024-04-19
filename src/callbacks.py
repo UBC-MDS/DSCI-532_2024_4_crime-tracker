@@ -1,11 +1,9 @@
 import pandas as pd
 from dash import callback, Output, Input
 import plotly.express as px
-from src.preprocessing import preprocessor, color_mapping
+from src.preprocessing import load_data, color_mapping
 
-crime_df, hourly_df = preprocessor(
-    pd.read_csv("data/processed/crimedata_processed.csv")
-)
+crime_df, hourly_df = load_data()
 
 
 @callback(
@@ -14,7 +12,7 @@ crime_df, hourly_df = preprocessor(
 )
 def update_line_chart(selected_crime, selected_neighbourhood):
 
-    filtered_df = hourly_df[(hourly_df["TYPE"].isin(selected_crime))]
+    filtered_df = hourly_df[(hourly_df["TYPE_SHORT"].isin(selected_crime))]
 
     filtered_df = filtered_df[
         (filtered_df["NEIGHBOURHOOD"].isin(selected_neighbourhood))
@@ -25,7 +23,9 @@ def update_line_chart(selected_crime, selected_neighbourhood):
         combined_color = color_mapping[selected_crime[0]]
 
     filtered_df = (
-        filtered_df.groupby("HOUR").agg({"TYPE": "first", "COUNT": "sum"}).reset_index()
+        filtered_df.groupby("HOUR")
+        .agg({"TYPE_SHORT": "first", "COUNT": "sum"})
+        .reset_index()
     )
     fig = px.line(
         filtered_df,
@@ -45,17 +45,17 @@ def update_line_chart(selected_crime, selected_neighbourhood):
 )
 def update_map_chart(selected_crime, selected_neighbourhood):
 
-    filtered_df = crime_df[(crime_df["TYPE"].isin(selected_crime))]
+    filtered_df = crime_df[(crime_df["TYPE_SHORT"].isin(selected_crime))]
 
     filtered_df = filtered_df[
         (filtered_df["NEIGHBOURHOOD"].isin(selected_neighbourhood))
     ]
 
     fig = px.scatter_mapbox(
-        filtered_df.dropna(subset=["NEIGHBOURHOOD", "TYPE"]),
+        filtered_df.dropna(subset=["NEIGHBOURHOOD", "TYPE_SHORT"]),
         lat="X",
         lon="Y",
-        color="TYPE",
+        color="TYPE_SHORT",
         title=f"Crime Location",
         color_discrete_map=color_mapping,
         center={"lat": 49.26914, "lon": -123.11226},
@@ -75,7 +75,7 @@ def update_map_chart(selected_crime, selected_neighbourhood):
 def update_type_bar_chart(selected_crime):
     print(selected_crime)
 
-    filtered_df = crime_df[(crime_df["TYPE"].isin(selected_crime))]
+    filtered_df = crime_df[(crime_df["TYPE_SHORT"].isin(selected_crime))]
 
     if len(selected_crime) > 1:
         combined_color = "#636EFA"
@@ -109,15 +109,17 @@ def update_neighbourhood_bar_chart(selected_neighbourhood):
 
     filtered_df = crime_df[(crime_df["NEIGHBOURHOOD"].isin(selected_neighbourhood))]
 
-    aggregated_data = filtered_df.groupby(["TYPE"]).size().reset_index(name="COUNT")
+    aggregated_data = (
+        filtered_df.groupby(["TYPE_SHORT"]).size().reset_index(name="COUNT")
+    )
     aggregated_data = aggregated_data.sort_values("COUNT", ascending=False)
     fig = px.bar(
         aggregated_data,
-        x="TYPE",
+        x="TYPE_SHORT",
         y="COUNT",
         text="COUNT",
-        labels={"COUNT": "Crime Count", "TYPE": "Crime Type"},
-        color="TYPE",  # Now 'TYPE' will be used for discrete color mapping
+        labels={"COUNT": "Crime Count", "TYPE_SHORT": "Crime Type"},
+        color="TYPE_SHORT",  # Now 'TYPE' will be used for discrete color mapping
         color_discrete_map=color_mapping,
     )
     fig.update_layout(margin=dict(l=0, r=0, t=30, b=10))

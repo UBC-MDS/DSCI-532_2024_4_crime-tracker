@@ -2,15 +2,13 @@ import dash_bootstrap_components as dbc
 import dash_vega_components as dvc
 import pandas as pd
 from dash import Dash, dcc, html
-from src.preprocessing import preprocessor
+from src.preprocessing import load_data
 
-crime_df, hourly_df = preprocessor(
-    pd.read_csv("data/processed/crimedata_processed.csv")
-)
+crime_df, hourly_df = load_data()
 
 crime_type_options = [
     {"label": crime_type, "value": crime_type}
-    for crime_type in crime_df["TYPE"].unique()
+    for crime_type in crime_df["TYPE_SHORT"].unique()
 ]
 
 neighbourhood_options = [
