@@ -2,14 +2,18 @@ import pandas as pd
 from dash import callback, Output, Input
 import plotly.express as px
 from src.preprocessing import load_data, color_mapping
+import joblib
 
 crime_df, hourly_df = load_data()
+
+memory = joblib.Memory("tmp", verbose=0)
 
 
 @callback(
     Output("crime-line-chart", "figure"),
     [Input("crime-type-dropdown", "value"), Input("neighbourhood-dropdown", "value")],
 )
+@memory.cache()
 def update_line_chart(selected_crime, selected_neighbourhood):
 
     filtered_df = hourly_df[(hourly_df["TYPE_SHORT"].isin(selected_crime))]
@@ -31,7 +35,7 @@ def update_line_chart(selected_crime, selected_neighbourhood):
         filtered_df,
         x="HOUR",
         y="COUNT",
-        title=f"Hourly Counts",
+        title=f"Total Hourly Crime Rate in 2023",
         labels={"HOUR": "Time [Hour]", "COUNT": "Crime Count"},
         color_discrete_sequence=[combined_color],
     )
@@ -45,6 +49,7 @@ def update_line_chart(selected_crime, selected_neighbourhood):
     Output("crime-map-chart", "figure"),
     [Input("crime-type-dropdown", "value"), Input("neighbourhood-dropdown", "value")],
 )
+@memory.cache()
 def update_map_chart(selected_crime, selected_neighbourhood):
 
     filtered_df = crime_df[(crime_df["TYPE_SHORT"].isin(selected_crime))]
@@ -60,6 +65,7 @@ def update_map_chart(selected_crime, selected_neighbourhood):
         color="TYPE_SHORT",
         title=f"Crime Location",
         color_discrete_map=color_mapping,
+        center={"lat": 49.244936, "lon": -123.170190},
         hover_name="TYPE",
         hover_data={
             "X": False,
@@ -68,7 +74,6 @@ def update_map_chart(selected_crime, selected_neighbourhood):
             "TYPE_SHORT": False,
             "HOUR": True,
         },
-        center={"lat": 49.26914, "lon": -123.11226},
         zoom=11,
         mapbox_style="carto-positron",
     )  # , hover_data=["price", "number_of_reviews", "host_name"])
