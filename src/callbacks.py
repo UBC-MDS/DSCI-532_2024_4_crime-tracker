@@ -65,7 +65,7 @@ def update_map_chart(selected_crime, selected_neighbourhood):
         color="TYPE_SHORT",
         title=f"Crime Location",
         color_discrete_map=color_mapping,
-        center={"lat": 49.26914, "lon": -123.11226},
+        center={"lat": 49.244936, "lon": -123.170190},
         zoom=11,
         mapbox_style="carto-positron",
     )  # , hover_data=["price", "number_of_reviews", "host_name"])
