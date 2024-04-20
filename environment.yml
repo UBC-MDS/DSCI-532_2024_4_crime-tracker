@@ -12,6 +12,7 @@ dependencies:
   - nbformat
   - plotly
   - pyarrow
+  - joblib
   - pip
   - pip:
       - dash-vega-components
