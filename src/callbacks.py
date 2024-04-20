@@ -35,7 +35,7 @@ def update_line_chart(selected_crime, selected_neighbourhood):
         filtered_df,
         x="HOUR",
         y="COUNT",
-        title=f"Hourly Counts",
+        title=f"Total Hourly Crime Rate in 2023",
         labels={"HOUR": "Time [Hour]", "COUNT": "Crime Count"},
         color_discrete_sequence=[combined_color],
     )
