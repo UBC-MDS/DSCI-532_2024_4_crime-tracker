@@ -36,6 +36,8 @@ def update_line_chart(selected_crime, selected_neighbourhood):
         color_discrete_sequence=[combined_color],
     )
     fig.update_traces(mode="lines+markers")
+    fig.update_layout(title=dict(font=dict(color='#cb212c', size=16)))
+    fig.update_layout(margin=dict(l=0, r=0, t=30, b=10))
     return fig
 
 
@@ -62,6 +64,7 @@ def update_map_chart(selected_crime, selected_neighbourhood):
         zoom=11,
         mapbox_style="carto-positron",
     )  # , hover_data=["price", "number_of_reviews", "host_name"])
+    fig.update_layout(title=dict(font=dict(color='#cb212c', size=16))) 
     fig.update_layout(margin=dict(l=0, r=0, t=30, b=10))
     fig.update_layout(legend=None)
     fig.update_traces(showlegend=False)
@@ -92,12 +95,14 @@ def update_type_bar_chart(selected_crime):
         y="COUNT",
         text="COUNT",
         labels={"COUNT": "Crime Count", "NEIGHBOURHOOD": "Neighbourhood"},
+        title=f"Crime Count in Different Neighbourhood",
         color_discrete_sequence=[combined_color],
     )
     fig.update_layout(margin=dict(l=0, r=0, t=30, b=10))
+    fig.update_layout(title=dict(font=dict(color='#cb212c', size=16)))
     fig.update_layout(legend=None)
     fig.update_traces(showlegend=False)
-    fig.update_xaxes(tickangle=90)
+    fig.update_xaxes(tickangle=45)
     return fig
 
 
@@ -117,13 +122,15 @@ def update_neighbourhood_bar_chart(selected_neighbourhood):
         y="COUNT",
         text="COUNT",
         labels={"COUNT": "Crime Count", "TYPE": "Crime Type"},
+        title=f"Crime Count for Different Crimes",
         color="TYPE",  # Now 'TYPE' will be used for discrete color mapping
         color_discrete_map=color_mapping,
     )
     fig.update_layout(margin=dict(l=0, r=0, t=30, b=10))
+    fig.update_layout(title=dict(font=dict(color='#cb212c', size=16)))
     fig.update_layout(legend=None)
     fig.update_traces(showlegend=False)
-    fig.update_xaxes(tickangle=90)
+    fig.update_xaxes(tickangle=45)
     return fig
 
 @callback(
