@@ -16,8 +16,6 @@ from src.components import (
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
 server = app.server
 
-cache = Cache(app.server, config={"CACHE_TYPE": "filesystem", "CACHE_DIR": "tmp"})
-
 app.layout = dbc.Container(
     [
         dbc.Row(
