@@ -2,25 +2,30 @@
 
 Welcome to the Vancouver Crime Tracker 2023 Dashboard!
 
+[About](#about) | [Dashboard](#dashboard) | [Navigation](#navigating-the-dashboard) | [Feedback & Support](#feedback-and-support) | [Developer's Note](#developer-note) | [Contributing](#contributing-guidelines) | [License](#license)
+
 ## About
 
-This "Crime Tracker" dashboard, designed specifically for law enforcement administrators and policymakers in the Vancouver Police Department, provides a comprehensive analytical view of crime data in Vancouver for the year 2023. Users can explore crime patterns based on location, time, and crime categories through interactive visualization and filtering options that empowers informed decision-making for resource allocation, tackling crime reduction. This dashboard features spatial heatmaps, temporal distribution, and summary statistics, offering users valuable insights into crime hotspots, temporal trends and spatial trends across neighborhoods.
+This "Crime Tracker" dashboard, designed specifically for law enforcement administrators and policymakers in the Vancouver Police Department, provides a comprehensive analytical view of crime data in Vancouver for the year 2023. Users can explore crime patterns based on location, time, and crime categories through interactive visualization and filtering options that empowers informed decision-making for resource allocation, tackling crime reduction. This dashboard features spatial heatmaps, temporal distribution, and summary statistic, offering users valuable insights into crime hotspots, temporal trends and spatial trends across neighborhoods. The dataset used comprised of eight specific crime types and eleven neighbourhoods. It can be found on [GeoDASH](https://geodash.vpd.ca/opendata/#).
 
-## Usage
+## Dashboard
 
 Our dashboard are hosted on the Render platform, accessible [here](https://dsci-532-2024-4-crime-tracker.onrender.com/).
 
 ### Navigating the Dashboard:
 
-- The top row displays four static summaries showing the total crime count and the top three crime types alongside their respective crime counts.
-- Use the dropdown filters on the left side of the dashboard to select specific crime types and neighbourhoods of interest. These filters will update the interactive map and time series chart below it.
-- Use the drop down filter on the upper right side of the dashboard to select specific crime type to view crime counts per neighbourhood in the bar chart underneath.
-- Similarly, use the dropdown filter on the bottom right side of the dashboard to select a specific neighbourhood of interest to view crime counts per crime type in the bar chart below.
+- Selected Crime Count Statistic: Located at the top of the left sidebar, this statistic reflects the total count of crimes in the selected neighborhood(s) and crime type(s).
+- Neighborhood and Crime Type Filters: Utilize the multi-selection filters on the left sidebar to choose multiple neighborhoods and specific crime types of interest.
+- Crime Count for Different Crimes: The bar chart at the top left of the dashboard displays the count of each crime type within the selected neighborhood(s), offering insights into the distribution of different types of crimes.
+- Crime Count in Different Neighborhood: The bar chart at the bottom left illustrates the count of crimes across eleven different neighborhoods for the selected crime type(s), enabling comparison of crime frequency across neighborhoods.
+- Geo-Location Map: Positioned on the top right, the map displays the exact geographic location of selected crimes. Tooltips provide additional information, including the neighborhood and specific crime type associated with each data point.
+- Hourly Time Series: The line chart on the bottom right showcases the hourly time series, allowing examination of how crime incidents vary throughout the day.
 
 ### Interacting with Visualizations:
 
-- Hover over elements in the charts to view detailed statistics via tooltips.
-- Drag the map to explore different areas by clicking and dragging.
+- Tooltip Information: Hover over elements in the charts to access detailed statistics via tooltips, providing additional insights into specific data points.
+- Map Interaction: Explore different areas by clicking and dragging on the map to navigate and zoom in or out as needed.
+- Download and Reset Options: Utilize the Plotly toolbar, available in every chart, to download the specific plot of interest in various formats for further analysis or sharing purposes.
 
 ![](https://github.com/UBC-MDS/DSCI-532_2024_4_crime-tracker/blob/main/img/demo.gif)
 
@@ -58,4 +63,3 @@ Please check out our contributing [guidelines](https://github.com/UBC-MDS/DSCI-5
 
 ## License
 This project is licensed under the terms of the [MIT license](https://github.com/UBC-MDS/DSCI-532_2024_4_crime-tracker/blob/main/LICENSE).
-
