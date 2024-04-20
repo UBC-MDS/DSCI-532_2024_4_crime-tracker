@@ -2,14 +2,18 @@ import pandas as pd
 from dash import callback, Output, Input
 import plotly.express as px
 from src.preprocessing import load_data, color_mapping
+import joblib
 
 crime_df, hourly_df = load_data()
+
+memory = joblib.Memory("tmp", verbose=0)
 
 
 @callback(
     Output("crime-line-chart", "figure"),
     [Input("crime-type-dropdown", "value"), Input("neighbourhood-dropdown", "value")],
 )
+@memory.cache()
 def update_line_chart(selected_crime, selected_neighbourhood):
 
     filtered_df = hourly_df[(hourly_df["TYPE_SHORT"].isin(selected_crime))]
@@ -45,6 +49,7 @@ def update_line_chart(selected_crime, selected_neighbourhood):
     Output("crime-map-chart", "figure"),
     [Input("crime-type-dropdown", "value"), Input("neighbourhood-dropdown", "value")],
 )
+@memory.cache()
 def update_map_chart(selected_crime, selected_neighbourhood):
 
     filtered_df = crime_df[(crime_df["TYPE_SHORT"].isin(selected_crime))]
