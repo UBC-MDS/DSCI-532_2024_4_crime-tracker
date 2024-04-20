@@ -123,7 +123,7 @@ def update_neighbourhood_bar_chart(selected_neighbourhood):
     filtered_df = crime_df[(crime_df["NEIGHBOURHOOD"].isin(selected_neighbourhood))]
 
     aggregated_data = (
-        filtered_df.groupby(["TYPE_SHORT"]).size().reset_index(name="COUNT")
+        filtered_df.groupby(["TYPE_SHORT", "TYPE"]).size().reset_index(name="COUNT")
     )
     aggregated_data = aggregated_data.sort_values("COUNT", ascending=False)
     fig = px.bar(
@@ -131,6 +131,10 @@ def update_neighbourhood_bar_chart(selected_neighbourhood):
         x="TYPE_SHORT",
         y="COUNT",
         text="COUNT",
+        hover_data={
+            "TYPE": True,
+            "TYPE_SHORT": False,
+        },
         labels={"COUNT": "Crime Count", "TYPE_SHORT": "Crime Type"},
         color="TYPE_SHORT",  # Now 'TYPE' will be used for discrete color mapping
         title=f"Crime Count for Different Crimes",
