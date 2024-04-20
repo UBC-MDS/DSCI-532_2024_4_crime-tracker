@@ -11,6 +11,7 @@ dependencies:
   - dash-bootstrap-components
   - nbformat
   - plotly
+  - pyarrow
   - pip
   - pip:
       - dash-vega-components
